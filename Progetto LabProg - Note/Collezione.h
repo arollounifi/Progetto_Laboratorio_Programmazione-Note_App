@@ -35,6 +35,9 @@ public:
     void View();
     void AddNotes (Notes& NewNote);
     void RemoveNote (int i);
+    void ViewNote(int i);
+    void ModifyNote(int i);
+    Notes ExtractNote (int i);
 
 };
 

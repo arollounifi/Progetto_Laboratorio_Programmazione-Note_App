@@ -51,3 +51,34 @@ bool Notes::isLocked() const {
 void Notes::setLocked(bool locked) {
     Locked = locked;
 }
+
+void Notes::Modify() {
+    int selezione;
+    std::cout << "Cosa si vuole modificare?\n" << std::endl;
+    std::cout << "1 - Titolo\n" << std::endl;
+    std::cout << "2 - Testo\n" << std::endl;
+    std::cout << "3 - Sicurezza\n" << std::endl;
+    std::cin >> selezione;
+    switch (selezione) {
+        case 1:
+            std::cout << "\n Inserire il titolo della nota." << std::endl;
+            std::cin.ignore();
+            std::getline(std::cin, Title);
+            break;
+        case 2:
+            std::cout << "\n Inserire il testo della nota." << std::endl;
+            std::cin.ignore();
+            std::getline(std::cin, Text);
+            break;
+        case 3:
+            if (this->Locked){
+                this->Locked = false;
+                std::cout<<"la nota non è più privata." << std::endl;
+            }
+            else{
+                this->Locked=true;
+                std::cout<<"la nota è privata." << std::endl;
+            }
+            break;
+    }
+}

@@ -56,7 +56,7 @@ int main() {
         }
         do { //do per accettare solo valori validi come opzioni
             std::cin >> scelta;
-        } while (scelta != 0 && scelta != 1 && scelta != 2);
+        } while (scelta != 0 && scelta != 1 && scelta != 2 && scelta != 3 && scelta != 4 && scelta!=5 && scelta!=6);
         switch (scelta) {
             //creazione di una collezione
             case 1 : {
@@ -105,6 +105,100 @@ int main() {
                         }
                     }
                 }
+                break;
+            }
+
+                //modifica di una nota
+            case 3:{
+                std::string Temp;
+                boolint res{};
+                res.found = false;
+                do {
+                    std::cout << "\nSelect a Collection" << std::endl;
+                    std::cin.ignore();
+                    std::getline(std::cin, Temp);
+                    res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
+                    if (res.found) {
+                        int s;
+                        std::cout << "\nE' stata selezionata la collezione " << RaccoltaCollezioni[res.count]->getTitolo() << ". Quale nota si vuole modificare?" << std::endl;
+                        RaccoltaCollezioni[res.count]->View();
+                        do{
+                            std::cin >> s;
+                        }while (s>0 && s<RaccoltaCollezioni[res.count]->getCollection().size());
+                        RaccoltaCollezioni[res.count]->ModifyNote(s);
+                    } else {
+                        std::cout << "\nLa collezione cercata non esiste. Selezionarne un'altra\n" << std::endl;
+                    }
+                }while(!res.found);
+                break;
+            }
+
+                //visualizzazione di una nota
+            case 4: {
+                std::string Temp;
+                boolint res{};
+                res.found = false;
+                do {
+                    std::cout << "\nSelect a Collection" << std::endl;
+                    std::cin.ignore();
+                    std::getline(std::cin, Temp);
+                    res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
+                    if (res.found) {
+                        int s;
+                        std::cout << "\nE' stata selezionata la collezione " << RaccoltaCollezioni[res.count]->getTitolo() << ". Quale nota si vuole eliminare?" << std::endl;
+                        RaccoltaCollezioni[res.count]->View();
+                        do{
+                            std::cin >> s;
+                        }while (s>0 && s<(RaccoltaCollezioni[res.count]->getCollection().size()-1));
+                        RaccoltaCollezioni[res.count]->ViewNote(s);
+                    } else {
+                        std::cout << "\nLa collezione cercata non esiste. Selezionarne un'altra\n" << std::endl;
+                    }
+                }while(!res.found);
+                break;
+            }
+
+                //eliminare una nota
+            case 5:{
+                std::string Temp;
+                boolint res{};
+                res.found = false;
+                do {
+                    std::cout << "\nSelect a Collection" << std::endl;
+                    std::cin.ignore();
+                    std::getline(std::cin, Temp);
+                    res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
+                    if (res.found) {
+                        int s;
+                        std::cout << "\nE' stata selezionata la collezione " << RaccoltaCollezioni[res.count]->getTitolo() << ". Quale nota si vuole visualizzare?" << std::endl;
+                        RaccoltaCollezioni[res.count]->View();
+                        do{
+                            std::cin >> s;
+                        }while (s>0 && s<(RaccoltaCollezioni[res.count]->getCollection().size()-1));
+                        RaccoltaCollezioni[res.count]->RemoveNote(s);
+                    } else {
+                        std::cout << "\nLa collezione cercata non esiste. Selezionarne un'altra\n" << std::endl;
+                    }
+                }while(!res.found);
+                break;
+            }
+
+                //eliminare una collezione
+            case 6:{
+                std::string Temp;
+                boolint res{};
+                res.found = false;
+                do {
+                    std::cout << "\nSelect a Collection" << std::endl;
+                    std::cin.ignore();
+                    std::getline(std::cin, Temp);
+                    res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
+                    if (res.found) {
+                        RaccoltaCollezioni[res.count]->~Collezione();
+                    } else {
+                        std::cout << "\nLa collezione cercata non esiste. Selezionarne un'altra\n" << std::endl;
+                    }
+                }while(!res.found);
                 break;
             }
 

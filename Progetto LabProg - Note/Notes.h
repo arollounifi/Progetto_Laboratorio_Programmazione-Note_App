@@ -30,6 +30,10 @@ public:
     //Ctor & Dtor
     Notes();
     ~Notes();
+
+    //metodi inerenti alla classe
+    void Modify ();
+
 };
 
 #endif //UNTITLED_NOTES_H
