@@ -11,8 +11,8 @@ TEST(Collezione, ConstructorsTest) {
 TEST(Collezione, AddNoteTest){
     Notes notaTest = Notes("Titolo nota 1", "Testo nota 1", false);
     Collezione ColTest("Titolo di prova");
-    int OriginalSize = ColTest.getCollection().size();
+    int OriginalSize = ColTest.CollectionSize();
 
     ColTest.AddNotes(notaTest);
-    ASSERT_FALSE(OriginalSize == ColTest.getCollection().size());
+    ASSERT_FALSE(OriginalSize == ColTest.CollectionSize());
 }

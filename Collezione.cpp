@@ -13,50 +13,45 @@ void Collezione::setTitolo(const std::string &titolo) {
     Titolo = titolo;
 }
 
-const std::vector<Notes> &Collezione::getCollection() const {
-    return Collection;
-}
-void Collezione::setCollection(const std::vector<Notes> &collection) {
-    Collection = collection;
-}
 
 //costruttori
-Collezione::Collezione() {
-    std::cout << "\n==== Creazione di una  nuova Collezione ====";
-    std::cout << "\n \nInserire il titolo della Collezione:";
-    std::cin.ignore();
-    std::getline(std::cin, Titolo);
-}
-Collezione::Collezione(std::string Tit) {
-    Titolo = Tit;
-}
+Collezione::Collezione() : Titolo("Titolo Stock"), TotalLockedNotes(0), TotalNotes(0) {}
+Collezione::Collezione(std::string Tit)  : Titolo(Tit), TotalLockedNotes(0), TotalNotes(0) {}
 
 //distruttore
 Collezione::~Collezione() {
     std::cout << "\nLa collezione " << this->Titolo << " e' stata eliminata";
 }
 
-//metodi della classee
+//metodi della classe
 void Collezione::View() {
-    std::cout << "\n\nNote: " << std::endl;
+    std::cout << Titolo << std::endl;
+    std::cout << "Numero di note: " << TotalNotes << ", di cui bloccate: " << TotalLockedNotes << std::endl;
+    std::cout << "      Note: " << std::endl;
     for(int i = 0; i<Collection.size(); i++){
-        std::cout << i << ") Title: " << Collection[i].getTitle() << std::endl;
+        std::cout << "         " << i << ") Title: " << Collection[i].getTitle() << std::endl;
     }
 } //vengono stampati i titoli  delle note contenute nella collezione
 
 void Collezione::AddNotes(Notes &NewNote) {
     Collection.push_back(NewNote);
+    TotalNotes ++;
+    if (NewNote.isLocked())
+        TotalLockedNotes ++;
     notify("added");
 
 }
 
 void Collezione::RemoveNote(int i) {
+    TotalNotes --;
+    if(Collection[i].isLocked())
+        TotalLockedNotes --;
     Collection.erase(Collection.begin()+i);
     notify("deleted");
 }
 
 void Collezione::ViewNote(int i) {
-    std::cout << "Title: " << Collection[i].getTitle() << "\nText: " << Collection[i].getText() << std::endl;
+    Collection[i].ShowNote();
 } //viengono stampati tiolo e testo di una certa nota
 
 void Collezione::ModifyNote(int i) {
@@ -69,6 +64,7 @@ void Collezione::ModifyNote(int i) {
         }while (choice != 1 && choice != 0);
         if (choice == 1){
             Collection[i].setLocked(false);
+            TotalLockedNotes --;
         }
     }
     else
@@ -87,6 +83,10 @@ void Collezione::addObserver(Observer *o) {
 
 void Collezione::removeObserver(Observer *o) {
     observers.remove(o);
+}
+
+int Collezione::CollectionSize() {
+    return Collection.size();
 }
 
 

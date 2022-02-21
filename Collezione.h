@@ -18,6 +18,8 @@ private:
     std::string Titolo;
     std::vector<Notes> Collection;
     std::list<Observer*> observers;
+    int TotalNotes;
+    int TotalLockedNotes;
 
 
 public:
@@ -30,15 +32,13 @@ public:
     const std::string &getTitolo() const;
     void setTitolo(const std::string &titolo);
 
-    const std::vector<Notes> &getCollection() const;
-    void setCollection(const std::vector<Notes> &collection);
-
     //metodi inerenti alla classe
     void View();
     void AddNotes (Notes& NewNote);
     void RemoveNote (int i);
     void ViewNote(int i);
     void ModifyNote(int i);
+    int CollectionSize();
 
     //Subject
     void notify(std::string action) override;

@@ -6,26 +6,7 @@
 #include <iostream>
 
 //Ctor & Dtor
-Notes::Notes() {
-    char Lok;
-    std::cout << "==== Creazione di una  nuova nota ===="<< std::endl;
-    std::cout << "\nInserire il titolo della nota."<< std::endl;
-    std::cin.ignore();
-    std::getline(std::cin, Title);
-    std::cout << "\nInserire il testo della nota." << std::endl;
-    std::getline(std::cin, Text);
-    std::cout << "\nDo you want to lock this note? (0=y or 1=n)" << std::endl;
-    std::cin >> Lok;
-    if (Lok == 0) {
-        this->Locked = false;
-
-    }
-    else if (Lok == 1) {
-        this->Locked = true;
-
-    }
-
-}
+Notes::Notes() : Title("Titolo stock"), Text("Test stock"), Locked(false) {}
 Notes::~Notes() {
     std::cout << "\nLa nota " << this->Title << " e' stata eliminata";
 }
@@ -92,6 +73,10 @@ void Notes::Modify() {
             break;
         }
     }
+}
+
+void Notes::ShowNote() const {
+    std::cout << "Titolo: " << Title << "\nText: " << Text << std::endl;
 }
 
 

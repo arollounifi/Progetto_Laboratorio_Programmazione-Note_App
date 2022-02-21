@@ -18,7 +18,6 @@ private:
     std::string Text;
     bool Locked;
 
-
 public:
     //getter & setter
     const std::string &getTitle() const;
@@ -37,7 +36,7 @@ public:
 
     //metodi inerenti alla classe
     void Modify ();
-
+    void ShowNote () const;
 
 };
 

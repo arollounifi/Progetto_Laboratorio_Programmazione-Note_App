@@ -25,6 +25,28 @@ boolint SeqSearch (std::vector<Collezione*> RC, int N, const std::string& Titolo
     return res;
 }
 
+void CreazioneNota (Notes& NotaCostr){
+    std::cout << "==== Creazione di una  nuova nota ===="<< std::endl;
+    std::string TestoTemp;
+    std::string TitoloTemp;
+    int Lok;
+    std::cout << "\nInserire il titolo della nota."<< std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, TitoloTemp);
+    NotaCostr.setTitle(TitoloTemp);
+    std::cout << "\nInserire il testo della nota." << std::endl;
+    std::getline(std::cin, TestoTemp);
+    NotaCostr.setText(TestoTemp);
+    std::cout << "\nDo you want to lock this note? (0=y or 1=n)" << std::endl;
+    std::cin >> Lok;
+    if (Lok == 0) {
+        NotaCostr.setLocked(true);
+    }
+    else if (Lok == 1) {
+        NotaCostr.setLocked(false);
+    }
+}
+
 int main() {
     int scelta;
     int exit = 0;
@@ -51,21 +73,28 @@ int main() {
         if(ImportantCounter->getImpNotes()!=0)
             ImportantCounter->show();
         for (const auto itr : RaccoltaCollezioni) {
-            std::cout << itr->getTitolo() << "\n" << std::endl;
+            itr->View();
 
-
-            for (const auto& itr2 : itr->getCollection()) {
-                std::cout << "    -" << itr2.getTitle() << "\n" << std::endl;
-            }
+            //for (const auto& itr2 : itr->getCollection()) {
+               // std::cout << "    -" << itr2.getTitle() << "\n" << std::endl;
+            //}
         }
+        std::cout << "=======================" << std::endl;
+
         do { //do per accettare solo valori validi come opzioni
             std::cin >> scelta;
         } while (scelta != 0 && scelta != 1 && scelta != 2 && scelta != 3 && scelta != 4 && scelta!=5 && scelta!=6);
         switch (scelta) {
             //creazione di una collezione
-            case 1 : {
+            case 1 :{
+                std::string TitoloTemp;
                 auto* Col = new Collezione;
                 RaccoltaCollezioni.push_back(Col);
+                std::cout << "\n==== Creazione di una  nuova Collezione ====";
+                std::cout << "\n \nInserire il titolo della Collezione:";
+                std::cin.ignore();
+                std::getline(std::cin, TitoloTemp);
+                Col->setTitolo(TitoloTemp);
                 break;
             }
 
@@ -73,6 +102,7 @@ int main() {
             case 2: {
                 std::string Temp;
                 auto *Not = new Notes;
+                CreazioneNota(*Not);
                 std::cout << "\nWhat collection does this note belong to?" << std::endl;
                 std::cin.ignore();
                 std::getline(std::cin, Temp);
@@ -124,11 +154,11 @@ int main() {
                     res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
                     if (res.found) {
                         int s;
-                        std::cout << "\nE' stata selezionata la collezione " << RaccoltaCollezioni[res.count]->getTitolo() << ". Quale nota si vuole modificare?" << std::endl;
+                        std::cout << "\nQuale nota si vuole modificare della collezione " << std::endl;
                         RaccoltaCollezioni[res.count]->View();
                         do{
                             std::cin >> s;
-                        }while (s>0 && s<RaccoltaCollezioni[res.count]->getCollection().size());
+                        }while (s>0 && s<RaccoltaCollezioni[res.count]->CollectionSize());
                         RaccoltaCollezioni[res.count]->ModifyNote(s);
                     } else {
                         std::cout << "\nLa collezione cercata non esiste. Selezionarne un'altra\n" << std::endl;
@@ -149,11 +179,11 @@ int main() {
                     res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
                     if (res.found) {
                         int s;
-                        std::cout << "\nE' stata selezionata la collezione " << RaccoltaCollezioni[res.count]->getTitolo() << ". Quale nota si vuole eliminare?" << std::endl;
+                        std::cout << "\nQuale nota si vuole visualizzare della collezione " << std::endl;
                         RaccoltaCollezioni[res.count]->View();
                         do{
                             std::cin >> s;
-                        }while (s>0 && s<(RaccoltaCollezioni[res.count]->getCollection().size()-1));
+                        }while (s>0 && s<(RaccoltaCollezioni[res.count]->CollectionSize()-1));
                         RaccoltaCollezioni[res.count]->ViewNote(s);
                     } else {
                         std::cout << "\nLa collezione cercata non esiste. Selezionarne un'altra\n" << std::endl;
@@ -174,11 +204,11 @@ int main() {
                     res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
                     if (res.found) {
                         int s;
-                        std::cout << "\nE' stata selezionata la collezione " << RaccoltaCollezioni[res.count]->getTitolo() << ". Quale nota si vuole visualizzare?" << std::endl;
+                        std::cout << "\nQuale nota si vuole eliminare della collezione " << std::endl;
                         RaccoltaCollezioni[res.count]->View();
                         do{
                             std::cin >> s;
-                        }while (s>0 && s<(RaccoltaCollezioni[res.count]->getCollection().size()-1));
+                        }while (s>0 && s<(RaccoltaCollezioni[res.count]->CollectionSize()-1));
                         RaccoltaCollezioni[res.count]->RemoveNote(s);
                     } else {
                         std::cout << "\nLa collezione cercata non esiste. Selezionarne un'altra\n" << std::endl;

@@ -17,5 +17,5 @@ protected:
 
 TEST_F(CollezioneTester, RemoveNoteTester){
     ColTest.RemoveNote(1);
-    ASSERT_EQ(1, ColTest.getCollection().size());
+    ASSERT_EQ(1, ColTest.CollectionSize());
 }
