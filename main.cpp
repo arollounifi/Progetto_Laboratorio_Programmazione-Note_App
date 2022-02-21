@@ -74,10 +74,6 @@ int main() {
             ImportantCounter->show();
         for (const auto itr : RaccoltaCollezioni) {
             itr->View();
-
-            //for (const auto& itr2 : itr->getCollection()) {
-               // std::cout << "    -" << itr2.getTitle() << "\n" << std::endl;
-            //}
         }
         std::cout << "=======================" << std::endl;
 
@@ -103,7 +99,7 @@ int main() {
                 std::string Temp;
                 auto *Not = new Notes;
                 CreazioneNota(*Not);
-                std::cout << "\nWhat collection does this note belong to?" << std::endl;
+                std::cout << "\nA quale collezione deve appartenere la nota?" << std::endl;
                 std::cin.ignore();
                 std::getline(std::cin, Temp);
                 auto res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
@@ -111,7 +107,7 @@ int main() {
                     int s;
                     RaccoltaCollezioni[res.count]->AddNotes(*Not);
                     //possibile aggiunta della nota appena creata anche alla collezione "Important"
-                    std::cout << "\nIs this note important? (0=yes / 1=no)" << std::endl;
+                    std::cout << "\nQuesta nota è importante? (0=yes / 1=no)" << std::endl;
                     do {
                         std::cin >> s;
                     } while (s != 1 && s != 0);
@@ -130,7 +126,7 @@ int main() {
                         RaccoltaCollezioni.push_back(NCol);
                         NCol->AddNotes(*Not);
                         //possibile aggiunta della nota appena creata anche alla collezione "Important"
-                        std::cout << "\nIs this note important? (0=yes / 1=no)" << std::endl;
+                        std::cout << "\nQuesta nota è importante? (0=yes / 1=no)" << std::endl;
                         do {
                             std::cin >> s;
                         } while (s != 1 && s != 0);
@@ -148,7 +144,7 @@ int main() {
                 boolint res{};
                 res.found = false;
                 do {
-                    std::cout << "\nSelect a Collection" << std::endl;
+                    std::cout << "\nSeleziona una collezione" << std::endl;
                     std::cin.ignore();
                     std::getline(std::cin, Temp);
                     res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
@@ -173,7 +169,7 @@ int main() {
                 boolint res{};
                 res.found = false;
                 do {
-                    std::cout << "\nSelect a Collection" << std::endl;
+                    std::cout << "\nSeleziona una collezione" << std::endl;
                     std::cin.ignore();
                     std::getline(std::cin, Temp);
                     res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
@@ -198,7 +194,7 @@ int main() {
                 boolint res{};
                 res.found = false;
                 do {
-                    std::cout << "\nSelect a Collection" << std::endl;
+                    std::cout << "\nSeleziona una collezione" << std::endl;
                     std::cin.ignore();
                     std::getline(std::cin, Temp);
                     res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
@@ -223,7 +219,7 @@ int main() {
                 boolint res{};
                 res.found = false;
                 do {
-                    std::cout << "\nSelect a Collection" << std::endl;
+                    std::cout << "\nSeleziona una collezione" << std::endl;
                     std::cin.ignore();
                     std::getline(std::cin, Temp);
                     res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
@@ -244,6 +240,7 @@ int main() {
             }
 
             default:{
+                std::cout << "I seriously have no idea how you managed to execute this line of code" << std::endl;
                 exit = 0;
                 break;
             }

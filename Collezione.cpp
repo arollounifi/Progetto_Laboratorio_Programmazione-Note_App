@@ -58,7 +58,7 @@ void Collezione::ModifyNote(int i) {
     int choice;
     std::cout << Collection[i].isLocked() << std::endl;
     if(Collection[i].isLocked()){
-        std::cout << "This note is locked! Do you want to unlock it?(1=yes or 0=no)" << std::endl;
+        std::cout << "Questa nota è bloccata, la si vuole sbloccare?(1=yes or 0=no)" << std::endl;
         do{
             std::cin >> choice;
         }while (choice != 1 && choice != 0);
