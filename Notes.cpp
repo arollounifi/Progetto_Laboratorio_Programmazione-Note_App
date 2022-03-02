@@ -7,9 +7,6 @@
 
 //Ctor & Dtor
 Notes::Notes() : Title("Titolo stock"), Text("Test stock"), Locked(false) {}
-Notes::~Notes() {
-    std::cout << "\nLa nota " << this->Title << " e' stata eliminata";
-}
 Notes::Notes(std::string Titolo, std::string Testo, bool Lock) : Title(Titolo), Text(Testo), Locked(Lock) {
 }
 
@@ -37,46 +34,29 @@ void Notes::setLocked(bool locked) {
 
 }
 
-void Notes::Modify() {
-    int selezione;
-    std::cout << "Cosa si vuole modificare?\n" << std::endl;
-    std::cout << "1 - Titolo\n" << std::endl;
-    std::cout << "2 - Testo\n" << std::endl;
-    std::cout << "3 - Sicurezza\n" << std::endl;
-    do{
-        std::cin >> selezione;
-    }while (selezione!= 1 && selezione != 2 && selezione != 3);
-    switch (selezione) {
-        case 1:
-            std::cout << "\n Inserire il titolo della nota." << std::endl;
-            std::cin.ignore();
-            std::getline(std::cin, Title);
-            break;
-        case 2:
-            std::cout << "\n Inserire il testo della nota." << std::endl;
-            std::cin.ignore();
-            std::getline(std::cin, Text);
-            break;
-        case 3:
-            if (this->Locked){
-                this->Locked = false;
-                std::cout<<"la nota non è più privata." << std::endl;
-            }
-            else{
-                this->Locked=true;
-                std::cout<<"la nota è privata." << std::endl;
-
-            }
-            break;
-        default:{
-            std::cout << "I seriously have no idea how you managed to execute this line of code" << std::endl;
-            break;
-        }
+void Notes::Modify(int& scelta, std::string& testo) {
+    if(scelta == 1) {
+        Title = testo;
+    }
+    else if(scelta == 2){
+        Text = testo;
+    }
+    else{
+        Locked = !Locked;
     }
 }
 
 void Notes::ShowNote() const {
     std::cout << "Titolo: " << Title << "\nText: " << Text << std::endl;
+}
+
+std::string Notes::PrintLock() const {
+    if(isLocked()){
+        return "  -  (Lock)";
+    }
+    else{
+        return " ";
+    }
 }
 
 

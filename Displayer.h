@@ -7,15 +7,17 @@
 
 #include "Observer.h"
 #include "Subject.h"
+#include "Collezione.h"
 
 class Displayer : public Observer{
 private:
-    int ImpNotes;
-    Subject* Collection;
+    int LockNotes;
+    int TotalNotes;
+    Collezione* Collection;
 
 public:
     //CTor & DTor
-    explicit Displayer( Subject* collection) : Collection(collection), ImpNotes(0){
+    explicit Displayer( Collezione* collection) : Collection(collection), LockNotes(0), TotalNotes(0){
         Collection->addObserver(this);
     }
     ~Displayer() override;
@@ -23,9 +25,10 @@ public:
     //getter & setter
     int getImpNotes() const;
     Subject *getCollection() const;
+    void setCollection(Collezione *collection);
 
     //methods
-    void update(std::string action) override;
+    void update() override;
     void show() const;
 };
 

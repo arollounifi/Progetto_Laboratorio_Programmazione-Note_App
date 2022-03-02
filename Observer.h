@@ -9,6 +9,6 @@
 class Observer {
 public:
     virtual ~Observer() = default;
-    virtual void update(std::string action) = 0;
+    virtual void update() = 0;
 };
 #endif //UNTITLED_OBSERVER_H

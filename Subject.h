@@ -9,7 +9,7 @@
 class Subject{
 public:
     virtual ~Subject() = default;
-    virtual void notify(std::string action) = 0;
+    virtual void notify() = 0;
     virtual void addObserver(Observer* o) = 0;
     virtual void removeObserver(Observer* o) = 0;
 

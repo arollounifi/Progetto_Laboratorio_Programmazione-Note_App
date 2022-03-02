@@ -32,11 +32,11 @@ public:
     //Ctor & Dtor
     Notes();
     Notes(std::string Titolo, std::string Testo, bool Lock);
-    ~Notes();
 
     //metodi inerenti alla classe
-    void Modify ();
+    void Modify (int& scelta, std::string& testo);
     void ShowNote () const;
+    std::string PrintLock () const;
 
 };
 

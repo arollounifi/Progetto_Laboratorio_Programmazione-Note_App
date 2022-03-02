@@ -1,8 +1,9 @@
 #include <iostream>
+#include <vector>
 #include "Notes.h"
 #include "Collezione.h"
 #include "Displayer.h"
-#include <vector>
+
 
 struct boolint{
     int count;
@@ -51,7 +52,7 @@ int main() {
     int scelta;
     int exit = 0;
     auto *Important = new Collezione("Important");
-    auto *ImportantCounter = new Displayer(Important);
+    auto *Disp = new Displayer(Important);
     std::vector<Collezione* > RaccoltaCollezioni;
     RaccoltaCollezioni.push_back(Important);
 
@@ -70,10 +71,11 @@ int main() {
         std::cout << "\nCollezioni: " << std::endl;
 
         //visualizzazione delle Collezioni e note
-        if(ImportantCounter->getImpNotes()!=0)
-            ImportantCounter->show();
         for (const auto itr : RaccoltaCollezioni) {
+            Disp->setCollection(itr);
+            Disp->update();
             itr->View();
+            Disp->show();
         }
         std::cout << "=======================" << std::endl;
 
@@ -143,6 +145,8 @@ int main() {
                 std::string Temp;
                 boolint res{};
                 res.found = false;
+                int mod;
+                std::string TestoTemp = " ";
                 do {
                     std::cout << "\nSeleziona una collezione" << std::endl;
                     std::cin.ignore();
@@ -150,12 +154,24 @@ int main() {
                     res = SeqSearch(RaccoltaCollezioni, RaccoltaCollezioni.size(), Temp);
                     if (res.found) {
                         int s;
-                        std::cout << "\nQuale nota si vuole modificare della collezione " << std::endl;
+                        std::cout << "\nQuale nota si vuole modificare della collezione (selezionare una nota non bloccata)" << std::endl;
                         RaccoltaCollezioni[res.count]->View();
                         do{
                             std::cin >> s;
-                        }while (s>0 && s<RaccoltaCollezioni[res.count]->CollectionSize());
-                        RaccoltaCollezioni[res.count]->ModifyNote(s);
+                        }while (s>0 && s<RaccoltaCollezioni[res.count]->CollectionSize() && !RaccoltaCollezioni[res.count]->IsNoteLocked(s));
+                        std::cout << "Selezionare cosa si vuole modificare:" << std::endl;
+                        std::cout << "1) Titolo" << std::endl;
+                        std::cout << "2) Testo" << std::endl;
+                        std::cout << "3) Sicurezza" << std::endl;
+                        do{
+                            std::cin >> mod;
+                        }while (mod != 0 && mod != 1 && mod != 2 && mod != 3);
+                        if(mod != 3){
+                            std::cout << "Inserire il nuovo Titolo/Testo" << std::endl;
+                            std::cin.ignore();
+                            std::getline(std::cin, TestoTemp);
+                        }
+                        RaccoltaCollezioni[res.count]->ModifyNote(s, mod, TestoTemp);
                     } else {
                         std::cout << "\nLa collezione cercata non esiste. Selezionarne un'altra\n" << std::endl;
                     }

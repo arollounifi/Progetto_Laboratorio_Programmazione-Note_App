@@ -9,27 +9,25 @@ Displayer::~Displayer() {
     Collection->removeObserver(this);
 }
 
-void Displayer::update(std::string action) {
-    if (action == "added"){
-        ImpNotes++;
-        std::cout << "\nUna nota è stata contrassegnata come importante!" << std::endl;
-    }
-    else if (action == "deleted"){
-        ImpNotes--;
-        std::cout << "\nUna nota è stata tolta dalle note importanti!" << std::endl;
-    }
+void Displayer::update() {
+    LockNotes = Collection->getTotalLockedNotes();
+    TotalNotes = Collection->getTotalNotes();
 }
 
 void Displayer::show() const {
-    std::cout << "Numero di note Private: " << ImpNotes << std::endl;
+    std::cout << "Questa collezione ha un totale di " << TotalNotes << " di cui " << LockNotes << " bloccate." << std::endl;
 }
 
 int Displayer::getImpNotes() const {
-    return ImpNotes;
+    return LockNotes;
 }
 
 Subject *Displayer::getCollection() const {
     return Collection;
+}
+
+void Displayer::setCollection(Collezione *collection) {
+    Collection = collection;
 }
 
 

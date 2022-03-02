@@ -4,6 +4,8 @@
 
 #include "Collezione.h"
 #include "Notes.h"
+#include "Displayer.h"
+
 
 //getter & setter
 const std::string &Collezione::getTitolo() const {
@@ -11,6 +13,16 @@ const std::string &Collezione::getTitolo() const {
 }
 void Collezione::setTitolo(const std::string &titolo) {
     Titolo = titolo;
+}
+int Collezione::getTotalNotes() const {
+    return TotalNotes;
+}
+int Collezione::getTotalLockedNotes() const {
+    return TotalLockedNotes;
+}
+
+Observer *Collezione::getObs() const {
+    return obs;
 }
 
 
@@ -26,10 +38,9 @@ Collezione::~Collezione() {
 //metodi della classe
 void Collezione::View() {
     std::cout << Titolo << std::endl;
-    std::cout << "Numero di note: " << TotalNotes << ", di cui bloccate: " << TotalLockedNotes << std::endl;
     std::cout << "      Note: " << std::endl;
     for(int i = 0; i<Collection.size(); i++){
-        std::cout << "         " << i << ") Title: " << Collection[i].getTitle() << std::endl;
+        std::cout << "         " << i << ") Title: " << Collection[i].getTitle() << Collection[i].PrintLock() << std::endl;
     }
 } //vengono stampati i titoli  delle note contenute nella collezione
 
@@ -38,7 +49,7 @@ void Collezione::AddNotes(Notes &NewNote) {
     TotalNotes ++;
     if (NewNote.isLocked())
         TotalLockedNotes ++;
-    notify("added");
+    notify();
 
 }
 
@@ -47,33 +58,29 @@ void Collezione::RemoveNote(int i) {
     if(Collection[i].isLocked())
         TotalLockedNotes --;
     Collection.erase(Collection.begin()+i);
-    notify("deleted");
+    notify();
 }
 
 void Collezione::ViewNote(int i) {
     Collection[i].ShowNote();
 } //viengono stampati tiolo e testo di una certa nota
 
-void Collezione::ModifyNote(int i) {
-    int choice;
-    std::cout << Collection[i].isLocked() << std::endl;
-    if(Collection[i].isLocked()){
-        std::cout << "Questa nota è bloccata, la si vuole sbloccare?(1=yes or 0=no)" << std::endl;
-        do{
-            std::cin >> choice;
-        }while (choice != 1 && choice != 0);
-        if (choice == 1){
-            Collection[i].setLocked(false);
-            TotalLockedNotes --;
-        }
-    }
-    else
-        Collection[i].Modify();
-}//viene modificata una certa nota se essa non è bloccata
+void Collezione::ModifyNote(int i, int scelta, std::string& TestoTemp) {
+    Collection[i].Modify(scelta, TestoTemp);
+}
 
-void Collezione::notify(std::string action) {
+int Collezione::CollectionSize() {
+    return Collection.size();
+}
+
+bool Collezione::IsNoteLocked(int i) {
+    return Collection[i].isLocked();
+}
+
+//metodi Subject
+void Collezione::notify() {
     for(auto & observer : observers) {
-        observer->update(action);
+        observer->update();
     }
 }
 
@@ -85,9 +92,7 @@ void Collezione::removeObserver(Observer *o) {
     observers.remove(o);
 }
 
-int Collezione::CollectionSize() {
-    return Collection.size();
-}
+
 
 
 
