@@ -1,5 +1,6 @@
 //
-// Created by aurel on 06/01/2022.
+// Observer Concreto che monitora lo stato dei contatori della classe Controller.
+// Created by Rollo Aurelio.
 //
 
 #ifndef UNTITLED_DISPLAYER_H
@@ -7,27 +8,26 @@
 
 #include "Observer.h"
 #include "Subject.h"
-#include "Collezione.h"
+#include "Controller.h"
 
 class Displayer : public Observer{
 private:
     int LockNotes;
     int TotalNotes;
-    Collezione* Collection;
+    Controller* controller;
 
 public:
     //CTor & DTor
-    explicit Displayer( Collezione* collection) : Collection(collection), LockNotes(0), TotalNotes(0){
-        Collection->addObserver(this);
+    explicit Displayer( Controller* c) : controller(c), LockNotes(0), TotalNotes(0){
+        controller->addObserver(this);
     }
     ~Displayer() override;
 
     //getter & setter
     int getImpNotes() const;
     Subject *getCollection() const;
-    void setCollection(Collezione *collection);
 
-    //methods
+    //metodi inerenti alla classe
     void update() override;
     void show() const;
 };

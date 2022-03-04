@@ -1,15 +1,14 @@
 //
-// Created by aurelio on 13/08/21.
+// Definizioni dei metodi della classe "Notes".
+// Created by Rollo Aurelio.
 //
 
 #include "Notes.h"
-#include <iostream>
 
 //Ctor & Dtor
 Notes::Notes() : Title("Titolo stock"), Text("Test stock"), Locked(false) {}
 Notes::Notes(std::string Titolo, std::string Testo, bool Lock) : Title(Titolo), Text(Testo), Locked(Lock) {
 }
-
 
 //getter and setter
 const std::string &Notes::getTitle() const {
@@ -34,22 +33,7 @@ void Notes::setLocked(bool locked) {
 
 }
 
-void Notes::Modify(int& scelta, std::string& testo) {
-    if(scelta == 1) {
-        Title = testo;
-    }
-    else if(scelta == 2){
-        Text = testo;
-    }
-    else{
-        Locked = !Locked;
-    }
-}
-
-void Notes::ShowNote() const {
-    std::cout << "Titolo: " << Title << "\nText: " << Text << std::endl;
-}
-
+//metodi inerenti alla clase
 std::string Notes::PrintLock() const {
     if(isLocked()){
         return "  -  (Lock)";

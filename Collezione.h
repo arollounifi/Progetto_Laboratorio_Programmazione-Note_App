@@ -1,5 +1,7 @@
 //
-// Created by aurelio on 16/08/21.
+// Classe che ha lo scopo di raccogliere le note create.
+// Presenta 2 contatori per tenere traccia di quante note (totali e bloccate) sono presenti in essa.
+// Created by Rollo Aurelio
 //
 
 #ifndef UNTITLED_COLLEZIONE_H
@@ -14,43 +16,37 @@
 
 class Notes;
 
-class Collezione : public Subject{
+class Collezione{
 private:
     std::string Titolo;
     std::vector<Notes> Collection;
-    std::list<Observer*> observers;
     int TotalNotes;
     int TotalLockedNotes;
-    Observer* obs;
-
 
 
 public:
     //Ctor & Dtor
     Collezione();
     explicit Collezione(std::string Tit);
-    ~Collezione() override;
+    ~Collezione();
 
     //getter & setter
     const std::string &getTitolo() const;
-    void setTitolo(const std::string &titolo);
+
+    const std::vector<Notes> &getCollection() const;
+    void setCollection(const std::vector<Notes> &collection);
+
     int getTotalNotes() const;
+    void setTotalNotes(int totalNotes);
+
     int getTotalLockedNotes() const;
-    Observer *getObs() const;
+    void setTotalLockedNotes(int totalLockedNotes);
 
     //metodi inerenti alla classe
-    void View();
-    void AddNotes (Notes& NewNote);
-    void RemoveNote (int i);
-    void ViewNote(int i);
-    bool IsNoteLocked (int i);
-    void ModifyNote(int i, int scelta, std::string& TestoTemp);
-    int CollectionSize();
+    int CollectionSize() const;
+    Notes * getNote(int i);
 
-    //Subject
-    void notify() override;
-    void addObserver(Observer *o) override;
-    void removeObserver(Observer *o) override;
+
 };
 
 #endif //UNTITLED_COLLEZIONE_H

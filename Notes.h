@@ -1,5 +1,6 @@
 //
-// Created by aurelio on 13/08/21.
+// Classe che rappresenta una nota che puo' eventualmente essere bloccata.
+// Created by Rollo Aurelio.
 //
 
 #ifndef UNTITLED_NOTES_H
@@ -34,8 +35,6 @@ public:
     Notes(std::string Titolo, std::string Testo, bool Lock);
 
     //metodi inerenti alla classe
-    void Modify (int& scelta, std::string& testo);
-    void ShowNote () const;
     std::string PrintLock () const;
 
 };

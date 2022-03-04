@@ -1,5 +1,6 @@
 //
-// Created by aurel on 06/01/2022.
+// Interfaccia Subject.
+// Created Rollo Aurelio.
 //
 
 #ifndef UNTITLED_SUBJECT_H

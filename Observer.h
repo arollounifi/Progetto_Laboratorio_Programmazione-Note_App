@@ -1,5 +1,6 @@
 //
-// Created by aurel on 06/01/2022.
+// Interfaccia Observer.
+// Created by Rollo Aurelio.
 //
 
 #ifndef UNTITLED_OBSERVER_H
