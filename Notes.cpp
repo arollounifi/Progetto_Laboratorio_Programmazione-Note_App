@@ -7,7 +7,7 @@
 
 //Ctor & Dtor
 Notes::Notes() : Title("Titolo stock"), Text("Test stock"), Locked(false) {}
-Notes::Notes(std::string Titolo, std::string Testo, bool Lock) : Title(Titolo), Text(Testo), Locked(Lock) {
+Notes::Notes(const std::string &Titolo,const std::string &Testo, bool Lock) : Title(Titolo), Text(Testo), Locked(Lock) {
 }
 
 //getter and setter

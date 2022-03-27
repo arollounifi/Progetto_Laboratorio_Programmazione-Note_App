@@ -8,10 +8,6 @@
 
 #include <list>
 #include <string>
-#include "Subject.h"
-#include "Observer.h"
-
-class Collezione;
 
 class Notes{
 private:
@@ -32,7 +28,7 @@ public:
 
     //Ctor & Dtor
     Notes();
-    Notes(std::string Titolo, std::string Testo, bool Lock);
+    Notes(const std::string &Titolo,const std::string &Testo, bool Lock);
 
     //metodi inerenti alla classe
     std::string PrintLock () const;

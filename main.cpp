@@ -3,7 +3,7 @@
 #include "Notes.h"
 #include "Collezione.h"
 #include "Displayer.h"
-#include "Controller.h"
+#include "Executive.h"
 
 
 struct boolint{
@@ -49,7 +49,7 @@ void CreazioneNota (Notes& NotaCostr){
     }
 }
 
-void SetNoteImportance (Notes &n, Collezione &c, Controller &ctrl){
+void SetNoteImportance (const Notes &n, Collezione &c, Executive &ctrl){
     int s;
     ctrl.setCol(&c);
     std::cout << "\nQuesta nota è importante? (0=yes / 1=no)" << std::endl;
@@ -65,7 +65,7 @@ int main() {
     int scelta;
     int exit = 0;
     auto *Important = new Collezione("Important");
-    auto *Ctrl = new Controller(Important);
+    auto *Ctrl = new Executive(Important);
     auto *Disp = new Displayer(Ctrl);
     std::vector<Collezione* > RaccoltaCollezioni;
     RaccoltaCollezioni.push_back(Important);
@@ -83,13 +83,14 @@ int main() {
         std::cout << "#  6 - Eliminare una collezione    #" << std::endl;
         std::cout << "#  0 - Exit                        #" << std::endl;
         std::cout << "#==================================#" << std::endl;
-        Disp->show();
+        Disp->ShowTotal();
         std::cout << "\nCollezioni: " << std::endl;
 
         //visualizzazione delle Collezioni e note
         for (const auto itr : RaccoltaCollezioni) {
             Ctrl->setCol(itr);
             Ctrl->ViewCol();
+            Disp->ShowCol();
         }
 
         do { //do per accettare solo valori validi come opzioni

@@ -9,12 +9,7 @@
 
 #include <iostream>
 #include <vector>
-#include <list>
-#include "Subject.h"
-#include "Observer.h"
-
-
-class Notes;
+#include "Notes.h"
 
 class Collezione{
 private:
@@ -27,7 +22,7 @@ private:
 public:
     //Ctor & Dtor
     Collezione();
-    explicit Collezione(std::string Tit);
+    explicit Collezione(const std::string &Tit);
     ~Collezione();
 
     //getter & setter

@@ -4,11 +4,10 @@
 //
 
 #include "Collezione.h"
-#include "Notes.h"
 
 //CTor & DTor
 Collezione::Collezione() : Titolo("Titolo Stock"), TotalLockedNotes(0), TotalNotes(0) {}
-Collezione::Collezione(std::string Tit)  : Titolo(Tit), TotalLockedNotes(0), TotalNotes(0) {}
+Collezione::Collezione(const std::string &Tit)  : Titolo(Tit), TotalLockedNotes(0), TotalNotes(0) {}
 
 Collezione::~Collezione() {
     std::cout << "\nLa collezione " << this->Titolo << " e' stata eliminata";

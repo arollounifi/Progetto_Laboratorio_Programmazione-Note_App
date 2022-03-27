@@ -1,5 +1,5 @@
 //
-// Observer Concreto che monitora lo stato dei contatori della classe Controller.
+// Observer Concreto che monitora lo stato dei contatori della classe Executive.
 // Created by Rollo Aurelio.
 //
 
@@ -8,28 +8,32 @@
 
 #include "Observer.h"
 #include "Subject.h"
-#include "Controller.h"
+#include "Executive.h"
 
 class Displayer : public Observer{
 private:
-    int LockNotes;
-    int TotalNotes;
-    Controller* controller;
+    int TotalLockNotes, TotalNotes, CollectionNotes, CollectionLockNotes;
+    Executive* pExecutive;
 
 public:
     //CTor & DTor
-    explicit Displayer( Controller* c) : controller(c), LockNotes(0), TotalNotes(0){
-        controller->addObserver(this);
+    explicit Displayer(Executive* c) : pExecutive(c), TotalLockNotes(0), TotalNotes(0), CollectionLockNotes(0), CollectionNotes(0){
+        pExecutive->addObserver(this);
     }
     ~Displayer() override;
 
     //getter & setter
-    int getImpNotes() const;
-    Subject *getCollection() const;
+    int getTotalLockNotes() const;
+    int getTotalNotes() const;
+    int getCollectionNotes() const;
+    int getCollectionLockNotes() const;
+    Subject *getpExecutive() const;
+
 
     //metodi inerenti alla classe
     void update() override;
-    void show() const;
+    void ShowTotal() const;
+    void ShowCol() const;
 };
 
 #endif //UNTITLED_DISPLAYER_H

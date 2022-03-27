@@ -12,7 +12,6 @@ TEST(Notes, DefaultConstructor) {
 
 TEST(Notes, GetterAndSetterTester) {
     Notes TestNote  = Notes("Titolo nota 1", "Testo nota 1", false);
-
     TestNote.setTitle("Titolo di Prova");
     TestNote.setText("Testo di Prova");
     TestNote.setLocked(true);
