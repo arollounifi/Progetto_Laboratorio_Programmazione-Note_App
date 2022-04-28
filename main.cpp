@@ -149,6 +149,7 @@ int main() {
                 res.found = false;
                 int mod;
                 std::string TestoTemp = " ";
+                bool ModSuccess;
                 do {
                     std::cout << "\nSeleziona una collezione" << std::endl;
                     std::cin.ignore();
@@ -161,20 +162,29 @@ int main() {
                         Ctrl->ViewCol();
                         do{
                             std::cin >> s;
-                        }while (s>0 && s<RaccoltaCollezioni[res.count]->CollectionSize() && !Ctrl->IsNoteLocked(s));
+                        }while (s>0 && s<RaccoltaCollezioni[res.count]->CollectionSize());
                         std::cout << "Selezionare cosa si vuole modificare:" << std::endl;
                         std::cout << "1) Titolo" << std::endl;
                         std::cout << "2) Testo" << std::endl;
                         std::cout << "3) Sicurezza" << std::endl;
                         do{
                             std::cin >> mod;
-                        }while (mod != 0 && mod != 1 && mod != 2 && mod != 3);
+                        }while (mod != 1 && mod != 2 && mod != 3);
                         if(mod != 3){
                             std::cout << "Inserire il nuovo Titolo/Testo" << std::endl;
                             std::cin.ignore();
-                            std::getline(std::cin, TestoTemp);
+                            std::getline (std::cin,TestoTemp);
+                            ModSuccess = Ctrl->ModifyNote(s, mod, TestoTemp);
                         }
-                        Ctrl->ModifyNote(s, mod, TestoTemp);
+                        else{
+                            ModSuccess = Ctrl->ModifyNote(s, mod, TestoTemp);
+                        }
+                        if (ModSuccess){
+                            std::cout << "La modifica e` avvenuta con successo!" << std::endl;
+                        }
+                        else{
+                            std::cout << "La modifica non e` avvenuta dato che e` stata selezionata una nota bloccata..." << std::endl;
+                        }
                     } else {
                         std::cout << "\nLa collezione cercata non esiste.\n" << std::endl;
                     }
@@ -186,7 +196,7 @@ int main() {
             case 4: {
                 std::string Temp;
                 boolint res{};
-                res.found = false;
+                res.found = false ;
                 do {
                     std::cout << "\nSeleziona una collezione" << std::endl;
                     std::cin.ignore();

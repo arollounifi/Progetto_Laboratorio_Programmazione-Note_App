@@ -29,24 +29,8 @@ int Executive::getColLockNotesCount() const {
     return ColLockNotesCount;
 }
 
-void Executive::setTotNotesCount(int totNotesCount) {
-    TotNotesCount = totNotesCount;
-}
-
-void Executive::setTotLockNotesCount(int totLockNotesCount) {
-    TotLockNotesCount = totLockNotesCount;
-}
-
 Collezione *Executive::getCol() const {
     return Col;
-}
-
-void Executive::setColNotesCount(int colNotesCount) {
-    ColNotesCount = colNotesCount;
-}
-
-void Executive::setColLockNotesCount(int colLockNotesCount) {
-    ColLockNotesCount = colLockNotesCount;
 }
 
 //metodi inerenti alla classe
@@ -63,11 +47,13 @@ void Executive::AddNote(const Notes &NewNote) {
     std::vector<Notes> vec = Col->getCollection();
     vec.push_back(NewNote);
     Col->setCollection(vec);
-    Col->setTotalNotes(Col->getTotalNotes()+1);
     TotNotesCount ++;
+    Col->setTotalNotes(Col->getTotalNotes()+1);
+    ColNotesCount=Col->getTotalNotes();
     if(NewNote.isLocked()) {
         TotLockNotesCount++;
         Col->setTotalLockedNotes(Col->getTotalLockedNotes()+1);
+        ColLockNotesCount=Col->getTotalLockedNotes();
     }
     notify();
 }
@@ -97,19 +83,35 @@ bool Executive::IsNoteLocked(int i) const {
     return nota->isLocked();
 }
 
-void Executive::ModifyNote(int i, int choice,const std::string &t) {
-    Notes *nota = Col->getNote(i);
-    if(choice == 1) {
-        nota->setTitle(t);
+bool Executive::ModifyNote(int i, int choice, const std::string& t) {
+    Notes nota(" ", " ", false);
+    nota.setTitle(Col->getNote(i)->getTitle());
+    nota.setText(Col->getNote(i)->getText());
+    if (IsNoteLocked(i)){
+        return false;
     }
-    else if(choice == 2){
-        nota->setText(t);
+    else {
+        if(choice == 1) {
+            nota.setTitle(t);
+        }
+        else if(choice == 2){
+            nota.setText(t);
+        }
+        else{
+            nota.setLocked(!nota.isLocked());
+            TotLockNotesCount++;
+            Col->setTotalLockedNotes(Col->getTotalLockedNotes()+1);
+            ColLockNotesCount=Col->getTotalLockedNotes();
+        }
+        std::vector<Notes> Vec = Col->getCollection();
+        auto itPos = Vec.begin()+i;
+        Vec.insert(itPos, nota);
+        Col->setCollection(Vec);
+        return true;
     }
-    else{
-        nota->setLocked(!nota->isLocked());
-    }
-}
 
+
+}
 
 //metodi Subject
 void Executive::notify() {
@@ -125,6 +127,7 @@ void Executive::addObserver(Observer *o) {
 void Executive::removeObserver(Observer *o) {
     observers.remove(o);
 }
+
 
 
 
