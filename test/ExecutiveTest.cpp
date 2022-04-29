@@ -41,7 +41,8 @@ TEST(Executive, ClassFunctionsTest){
     //test IsNoteLocked
     EXPECT_EQ(true, e.IsNoteLocked(0));
     //test ModifyNote
-    e.ModifyNote(1, 1, "Nuovo Titolo");
+    EXPECT_FALSE(e.ModifyNote(0, 1, "Nuovo Titolo"));
+    EXPECT_TRUE(e.ModifyNote(1, 1, "Nuovo Titolo"));
     e.ModifyNote(1, 2, "Nuovo Testo");
     e.ModifyNote(1, 3, "testo qualsiasi");
     auto* pNote = c->getNote(1);

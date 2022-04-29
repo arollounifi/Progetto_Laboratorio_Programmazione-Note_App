@@ -22,13 +22,12 @@ public:
     }
     ~Displayer() override;
 
-    //getter & setter
+    //getter
     int getTotalLockNotes() const;
     int getTotalNotes() const;
     int getCollectionNotes() const;
     int getCollectionLockNotes() const;
     Subject *getpExecutive() const;
-
 
     //metodi inerenti alla classe
     void update() override;

@@ -102,6 +102,7 @@ bool Executive::ModifyNote(int i, int choice, const std::string& t) {
             TotLockNotesCount++;
             Col->setTotalLockedNotes(Col->getTotalLockedNotes()+1);
             ColLockNotesCount=Col->getTotalLockedNotes();
+            notify();
         }
         std::vector<Notes> Vec = Col->getCollection();
         auto itPos = Vec.begin()+i;

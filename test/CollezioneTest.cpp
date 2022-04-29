@@ -18,10 +18,12 @@ TEST(Collezione, ConstructorsTest) {
 }
 
 TEST(Collezione, ClassFunctionsTest){
-    Notes notaTest = Notes("Titolo nota 1", "Testo nota 1", true);
+    Notes notaTest = Notes("Titolo nota 1", "Testo nota 1", false);
     auto* ColTest = new Collezione("Titolo di prova");
     auto* e = new Executive(ColTest);
     e->AddNote(notaTest);
     EXPECT_EQ(1, ColTest->CollectionSize());
     ASSERT_TRUE(nullptr != ColTest->getNote(0));
+    EXPECT_EQ(1, ColTest->getTotalNotes());
+    EXPECT_EQ(0, ColTest->getTotalLockedNotes());
 }
